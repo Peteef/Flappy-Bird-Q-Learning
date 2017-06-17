@@ -16,6 +16,9 @@ class Bot(object):
         self.last_action = 0
         self.moves = []
 
+        self.data = {}
+        print("Try:", self.gameCNT)
+
     def load_qvalues(self):
         # Load q values from a JSON file
         self.qvalues = {}
@@ -45,7 +48,7 @@ class Bot(object):
         return self.last_state
 
 
-    def update_scores(self):
+    def update_scores(self, score):
         #Update qvalues via iterating over experiences
         history = list(reversed(self.moves))
 
@@ -70,7 +73,19 @@ class Bot(object):
 
             t += 1
 
+        #Saving data about results
+        print("Score:", score)
+        self.data[self.gameCNT] = score
+        data_file = open('data.json', 'w')
+        json.dump(self.data, data_file)
+        data_file.close()
+
+
         self.gameCNT += 1 #increase game count
+        print("Try:", self.gameCNT)
+
+
+
         self.dump_qvalues() # Dump q values (if game count % DUMPING_N == 0)
         self.moves = []  #clear history after updating strategies
 
