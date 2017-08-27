@@ -1,5 +1,5 @@
 from itertools import cycle
-from bot import Bot
+from kamil.bot_kamil import Bot
 
 import random
 import sys
