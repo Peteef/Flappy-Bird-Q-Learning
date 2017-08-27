@@ -32,6 +32,9 @@ class FlappyLogger:
         copy2(self.baseLogPath, self.historyLogPath)
 
     def clear_logfile(self):
-        open('var/log/game.log', 'w').close()
+        try:
+            open('var/log/game.log', 'w').close()
+        except Exception:
+            print() #silence
 
 
