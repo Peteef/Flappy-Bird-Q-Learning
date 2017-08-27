@@ -23,7 +23,7 @@ class Bot(object):
         # Load q values from a JSON file
         self.qvalues = {}
         try:
-            fil = open('qvalues.json', 'r')
+            fil = open('var/data/qvalues.json', 'r')
         except IOError:
             return
         self.qvalues = json.load(fil)
@@ -76,7 +76,7 @@ class Bot(object):
         #Saving data about results
         print("Score:", score)
         self.data[self.gameCNT] = score
-        data_file = open('data.json', 'w')
+        data_file = open('var/data/data.json', 'w')
         json.dump(self.data, data_file)
         data_file.close()
 
@@ -110,7 +110,7 @@ class Bot(object):
     def dump_qvalues(self):
         # Dump the qvalues to the JSON file
         if self.gameCNT % self.DUMPING_N == 0:
-            fil = open('qvalues.json', 'w')
+            fil = open('var/data/qvalues.json', 'w')
             json.dump(self.qvalues, fil)
             fil.close()
             print('Q-values updated on local file.')
