@@ -32,7 +32,7 @@ class Bot(object):
     def act(self, xdif, ydif, vel):
         # Chooses the best action with respect to the current state - Chooses 0 (don't flap) to tie-break
         state = self.map_state(xdif, ydif, vel)
-
+        #print(state)
         self.moves.append( [self.last_state, self.last_action, state] ) # Add the experience to the history
 
         self.last_state = state # Update the last_state with the current state
@@ -53,20 +53,35 @@ class Bot(object):
         history = list(reversed(self.moves))
 
         #Flag if the bird died in the top pipe
-        high_death_flag = True if int(history[0][2].split('_')[1]) > 120 else False
-
+        number_of_moves_to_punish = 0
+        high_death_flag = True if int(history[0][2].split('_')[1]) >= 100 else False
+        if int(history[0][2].split('_')[1]) <= 20 and int(history[0][2].split('_')[0]) >= 20:
+            low_death_flag = True
+            number_of_moves_to_punish = min(-( int(history[0][2].split('_')[1]) / 20), 4)
+            print("punishing %d" % number_of_moves_to_punish)
+        else:
+            low_death_flag = False
         #Q-learning score updates
         t = 1
         for exp in history:
             state = exp[0]
             act = exp[1]
             res_state = exp[2]
-            if t == 1 or t==2:
-                self.qvalues[state][act] = (1- self.lr) * (self.qvalues[state][act]) + (self.lr) * ( self.r[1] + (self.discount)*max(self.qvalues[res_state]) )
+            if low_death_flag:
+                self.qvalues[state][act] = (1 - self.lr) * (self.qvalues[state][act]) + (self.lr) * (
+                self.r[1] + (self.discount) * max(self.qvalues[res_state]))
+                number_of_moves_to_punish -= 1
+                if number_of_moves_to_punish < 0:
+                    low_death_flag = False
+
+            elif t == 1 or t == 2:
+                self.qvalues[state][act] = (1 - self.lr) * (self.qvalues[state][act]) + (self.lr) * (
+                self.r[1] + (self.discount) * max(self.qvalues[res_state]))
 
             elif high_death_flag and act:
-                self.qvalues[state][act] = (1- self.lr) * (self.qvalues[state][act]) + (self.lr) * ( self.r[1] + (self.discount)*max(self.qvalues[res_state]) )
-                high_death_flag = False
+                 print(" high_death_worked")
+                 self.qvalues[state][act] = (1- self.lr) * (self.qvalues[state][act]) + (self.lr) * ( self.r[1] + (self.discount)*max(self.qvalues[res_state]) )
+                 high_death_flag = False
 
             else:
                 self.qvalues[state][act] = (1- self.lr) * (self.qvalues[state][act]) + (self.lr) * ( self.r[0] + (self.discount)*max(self.qvalues[res_state]) )
