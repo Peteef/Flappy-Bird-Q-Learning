@@ -10,7 +10,7 @@ class Bot(object):
         self.DUMPING_N = 25 # Number of iterations to dump Q values to JSON after
         self.discount = 1.0
         self.r = {0: 1, 1: -1000} # Reward function
-        self.lr = 0.7 #Learning rate
+        self.lr = 0.6 #Learning rate
         self.load_qvalues()
         self.last_state = "420_240_0"
         self.last_action = 0
@@ -61,7 +61,7 @@ class Bot(object):
             state = exp[0]
             act = exp[1]
             res_state = exp[2]
-            if t == 1 or t==2:
+            if t == 1 or t == 2:
                 self.qvalues[state][act] = (1- self.lr) * (self.qvalues[state][act]) + (self.lr) * ( self.r[1] + (self.discount)*max(self.qvalues[res_state]) )
 
             elif high_death_flag and act:
