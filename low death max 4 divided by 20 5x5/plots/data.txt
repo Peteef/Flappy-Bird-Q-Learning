@@ -1,0 +1,3 @@
+Timer:  07:15:47:06 
+Iterations:  7526 
+Average score:  144.02019665160776
