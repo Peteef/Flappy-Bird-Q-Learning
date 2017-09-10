@@ -1,0 +1,5 @@
+Timer:  04d:23h:37m:30s 
+Iterations:  5867 
+Average overall:  119.83688426793933
+Average after reached 750:  185.42868988391376 
+Max:  1905
