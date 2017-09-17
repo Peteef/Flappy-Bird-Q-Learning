@@ -28,7 +28,7 @@ The original version of game [here][3].
 ![alt-text](https://user-images.githubusercontent.com/26136274/30525076-c303a08c-9bff-11e7-85fb-3a251f6023ae.png "Comparision")
 Here is the result of our best modifications (on the right) compared to bot by  **_chncyhn_** (on the left).
 As you can see, we achieved much better score with 2000 less iterations.
-After 3000 iterations single round cae take much time so bot starts to learn slower.
+After 3000 iterations single round can take much time so bot starts to learn slower.
 
 ## At the end
 ML is much more interesting that it looks like. In our opinion this is the future of programming and IT at all.
