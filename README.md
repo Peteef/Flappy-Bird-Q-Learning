@@ -1,4 +1,6 @@
 # Flappy-Bird-Q-Learning
+![alt-text](https://user-images.githubusercontent.com/26136274/30525229-0f903a0c-9c03-11e7-8501-df8c3585b37c.png "Flappy Bird")
+
 Implementation of ML bot for Flappy Bird game, made by:
 
 * Rafał Słaby
