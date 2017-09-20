@@ -55,6 +55,7 @@ class Bot(object):
         #Flag if the bird died in the top pipe
         number_of_moves_to_punish = 0
         high_death_flag = True if int(history[0][2].split('_')[1]) >= 100 else False
+        #flag if the bird died in the low pipe
         if int(history[0][2].split('_')[1]) <= 20 and int(history[0][2].split('_')[0]) >= 20:
             low_death_flag = True
             number_of_moves_to_punish = min(-( int(history[0][2].split('_')[1]) / 20), 3)
